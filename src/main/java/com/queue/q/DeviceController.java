@@ -1,18 +1,24 @@
 package com.queue.q;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
+@RequestMapping(value = "/device")
 public class DeviceController {
-    @RequestMapping(value = "/device", method = RequestMethod.GET)
-    public Request checkDeviceRequest(){
-        if(QApplication.deviceQueue.isEmpty()){
-            return null;
-        }
-        else {
-            return QApplication.deviceQueue.poll();
+
+        @Autowired
+        private queueRepository IQrepository;
+
+        @GetMapping
+        public ResponseEntity<Request> checkDeviceRequest(){
+        if(IQrepository.DeviceQIsEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(IQrepository.getDevicePoll(),HttpStatus.CREATED);
         }
     }
 
 }
-
