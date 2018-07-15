@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DeviceController {
 
         @Autowired
-        private queueRepository IQreposytory;
+        private queueRepository IQrepository;
 
         @GetMapping
         public ResponseEntity<Request> checkDeviceRequest(){
-        if(IQreposytory.DeviceQIsEmpty()) {
+        if(IQrepository.DeviceQIsEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(IQreposytory.getDevicePoll(),HttpStatus.CREATED);
+            return new ResponseEntity<>(IQrepository.getDevicePoll(),HttpStatus.CREATED);
         }
     }
 
