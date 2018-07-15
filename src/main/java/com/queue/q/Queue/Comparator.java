@@ -1,4 +1,6 @@
-package com.queue.q;
+package com.queue.q.Queue;
+
+import com.queue.q.Request;
 
 public class Comparator implements java.util.Comparator<Request> {
     public int compare(Request req1, Request req2){

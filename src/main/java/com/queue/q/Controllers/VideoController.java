@@ -1,5 +1,6 @@
-package com.queue.q;
+package com.queue.q.Controllers;
 
+import com.queue.q.Queue.QueueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class VideoController {
 
     @Autowired
-    private queueRepository IQrepository;
+    private QueueRepository IQrepository;
 
     @GetMapping
     public ResponseEntity<Object> get (){
-        if(IQrepository.VideoQIsEmpty())
+        if(IQrepository.videoQIsEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(IQrepository.getVideoPoll(), HttpStatus.OK);
     }

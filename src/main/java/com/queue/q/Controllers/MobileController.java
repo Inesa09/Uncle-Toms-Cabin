@@ -1,5 +1,7 @@
-package com.queue.q;
+package com.queue.q.Controllers;
 
+import com.queue.q.Queue.QueueRepository;
+import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class MobileController {
 
     @Autowired
-    private queueRepository IQrepository;
+    private QueueRepository IQrepository;
 
     @GetMapping
     public ResponseEntity<Object> get (){
-        if(IQrepository.MobileQIsEmpty())
+        if(IQrepository.mobileQIsEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(IQrepository.getMobilePoll(), HttpStatus.OK);
     }

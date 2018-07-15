@@ -1,5 +1,8 @@
-package com.queue.q;
-import org.springframework.beans.factory.annotation.*;
+package com.queue.q.Controllers;
+
+import com.queue.q.Queue.QueueRepository;
+import com.queue.q.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class ServerController {
 
     @Autowired
-    private queueRepository IQrepository;
+    private QueueRepository IQrepository;
 
     @GetMapping
     public ResponseEntity<Request> checkServerRequest() {
