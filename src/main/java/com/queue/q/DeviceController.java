@@ -14,7 +14,7 @@ public class DeviceController {
 
         @GetMapping
         public ResponseEntity<Request> checkDeviceRequest(){
-        if(IQrepository.DeviceQIsEmpty()) {
+        if(IQrepository.deviceQIsEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(IQrepository.getDevicePoll(),HttpStatus.CREATED);
