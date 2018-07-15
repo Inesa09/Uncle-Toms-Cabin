@@ -4,42 +4,42 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 @Component("queueRepository")
 public class queueRepository {
-   private Queue<Request> mobilequeue= new PriorityQueue<>(new Comparator());
-   private Queue<Request> devicequeue = new PriorityQueue<>(new Comparator());
-   private Queue<Request> serverqueue = new PriorityQueue<>(new Comparator());
-   private Queue<Request> videoqueue = new PriorityQueue<>(new Comparator());
-   private Queue queues[] = {mobilequeue,devicequeue,serverqueue,videoqueue};
+   private Queue<Request> Mobilequeue= new PriorityQueue<>(new Comparator());
+   private Queue<Request> Devicequeue = new PriorityQueue<>(new Comparator());
+   private Queue<Request> Serverqueue = new PriorityQueue<>(new Comparator());
+   private Queue<Request> Videoqueue = new PriorityQueue<>(new Comparator());
+   private Queue Queues[] = {Mobilequeue,Devicequeue,Serverqueue,Videoqueue};
 
     public Request getMobilePoll(){
-        return mobilequeue.poll();
+        return Mobilequeue.poll();
     }public Request getDevicePoll(){
-        return devicequeue.poll();
+        return Devicequeue.poll();
     }public Request getServerPoll(){
-        return serverqueue.poll();
+        return Serverqueue.poll();
     }public Request getVideoPoll(){
-        return videoqueue.poll();
+        return Videoqueue.poll();
     }
     public void setRequest(byte id, Request request){
-        queues[id].add(request);
+        Queues[id].add(request);
     }
 
-    public boolean MobileQIsEmpty(){
-        if(mobilequeue.isEmpty()){
+    public boolean mobileQIsEmpty(){
+        if(Mobilequeue.isEmpty()){
             return true;
         }
         return false;
-    }public boolean DeviceQIsEmpty(){
-        if(devicequeue.isEmpty()){
+    }public boolean deviceQIsEmpty(){
+        if(Devicequeue.isEmpty()){
             return true;
         }
         return false;
-    }public boolean ServerQIsEmpty(){
-        if(serverqueue.isEmpty()){
+    }public boolean serverQIsEmpty(){
+        if(Serverqueue.isEmpty()){
             return true;
         }
         return false;
-    }public boolean VideoQIsEmpty(){
-        if(videoqueue.isEmpty()){
+    }public boolean videoQIsEmpty(){
+        if(Videoqueue.isEmpty()){
             return true;
         }
         return false;
