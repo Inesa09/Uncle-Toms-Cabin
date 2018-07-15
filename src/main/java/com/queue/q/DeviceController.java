@@ -17,7 +17,7 @@ public class DeviceController {
         if(IQrepository.deviceQIsEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(IQrepository.getDevicePoll(),HttpStatus.CREATED);
+            return new ResponseEntity<>(IQrepository.getDevicePoll(),HttpStatus.OK);
         }
     }
 
