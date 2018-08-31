@@ -6,6 +6,10 @@ public class Request {
     private int type;
     private Object request;
 
+    public Request() {
+        super();
+    }
+
     public Request(byte serviceId, byte priority, int type, Object request){
         this.serviceId = serviceId;
         this.priority = priority;
