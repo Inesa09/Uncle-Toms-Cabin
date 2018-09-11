@@ -12,6 +12,14 @@ public class DeviceQueue implements IQueue {
     public void setRequest (Request request) {
         queue.add(request);
     }
+    
+    public void lock(Lock lock) { 
+        lock.lock(); 
+    }
+
+    public void unlock(Lock lock) { 
+        lock.unlock(); 
+    }
 
     public Request getRequest(){
         return queue.poll();
