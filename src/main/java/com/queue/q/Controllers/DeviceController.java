@@ -5,9 +5,12 @@ import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping(value = "/device")
@@ -21,5 +24,37 @@ public class DeviceController {
         if(deviceQueue.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(deviceQueue.getRequest(),HttpStatus.OK);
+    }
+    @PostMapping
+    public ResponseEntity<Request> postDeviceRequest(@RequestBody Request request){
+        Lock lock = new ReentrantLock();
+        if(request.getTimelocked()==0){
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    lock.lock();
+                   try{
+                       request.setPriority((byte)15);
+                       deviceQueue.setRequest(request);
+                   }
+                   finally {
+                       lock.unlock();
+                   }
+                }
+            };
+            timer.schedule(task,1000*60*request.getTimelocked());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            lock.lock();
+            try{
+                deviceQueue.setRequest(request);
+            }
+            finally {
+                lock.unlock();
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 }
