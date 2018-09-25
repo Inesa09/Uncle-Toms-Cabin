@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.concurrent.locks.Lock;
 
 @Component("VideoQueue")
 public class VideoQueue implements IQueue {

@@ -27,8 +27,9 @@ public class DeviceController {
     }
     @PostMapping
     public ResponseEntity<Request> postDeviceRequest(@RequestBody Request request){
+
         Lock lock = new ReentrantLock();
-        if(request.getTimelocked()==0){
+        if(request.getTimelock() == 0){
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 @Override
@@ -43,7 +44,7 @@ public class DeviceController {
                    }
                 }
             };
-            timer.schedule(task,1000*60*request.getTimelocked());
+            timer.schedule(task,1000*60*request.getTimelock());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else {
@@ -58,3 +59,5 @@ public class DeviceController {
         }
     }
 }
+
+

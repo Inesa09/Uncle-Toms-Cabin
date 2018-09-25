@@ -2,9 +2,9 @@ package com.queue.q.Queue;
 
 import com.queue.q.Request;
 import org.springframework.stereotype.Component;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.concurrent.locks.Lock;
 
 @Component("DeviceQueue")
 public class DeviceQueue implements IQueue {

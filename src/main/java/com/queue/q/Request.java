@@ -4,19 +4,21 @@ public class Request {
     private byte serviceId;
     private byte priority;
     private int type;
-    private int timelocked = 0;
+    private int timelock = 0;
     private Object request;
 
     public Request() {
         super();
     }
 
-    public Request(byte serviceId, byte priority, int type, int timelocked, Object request){
+
+
+    public Request(byte serviceId, byte priority, int type, int timelock, Object request){
         this.serviceId = serviceId;
         this.priority = priority;
         this.type = type;
         this.request = request;
-        this.timelocked = timelocked;
+        this.timelock = timelock;
     }
 
     public Request(byte serviceId, byte priority, Object request){
@@ -41,7 +43,9 @@ public class Request {
         return request;
     }
 
-    public int getTimelocked() { return timelocked; }
+    public int getTimelock() {
+        return timelock;
+    }
 
     public void setServiceId(byte serviceId) {
         this.serviceId = serviceId;
@@ -59,5 +63,7 @@ public class Request {
         this.request = request;
     }
 
-    public void setTimelocked(int timelocked) { this.timelocked = timelocked; }
+    public void setTimelocked(int timelock) {
+        this.timelock = timelock;
+    }
 }
