@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping(value = "/device")
@@ -27,34 +25,20 @@ public class DeviceController {
     }
     @PostMapping
     public ResponseEntity<Request> postDeviceRequest(@RequestBody Request request){
-
-        Lock lock = new ReentrantLock();
         if(request.getTimelock() == 0){
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    lock.lock();
-                   try{
-                       request.setPriority((byte)15);
-                       deviceQueue.setRequest(request);
-                   }
-                   finally {
-                       lock.unlock();
-                   }
+                    request.setPriority((byte)15);
+                    deviceQueue.setRequest(request);
                 }
             };
             timer.schedule(task,1000*60*request.getTimelock());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else {
-            lock.lock();
-            try{
-                deviceQueue.setRequest(request);
-            }
-            finally {
-                lock.unlock();
-            }
+            deviceQueue.setRequest(request);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
