@@ -20,10 +20,10 @@ public class PostController {
         String mobileUrl = "http://localhost:8080/mobile";
         String webUrl = "http://localhost:8080/web";
 
-        ResponseEntity<Request> mobileResponce = postRequest(requestToPost, mobileUrl);
-        ResponseEntity<Request> webResponce = postRequest(requestToPost, webUrl);
+        ResponseEntity<Request> mobileResponse = postRequest(requestToPost, mobileUrl);
+        ResponseEntity<Request> webResponse = postRequest(requestToPost, webUrl);
 
-        if(mobileResponce.getStatusCode() == HttpStatus.OK && webResponce.getStatusCode() == HttpStatus.OK)
+        if(mobileResponse.getStatusCode() == HttpStatus.OK && webResponse.getStatusCode() == HttpStatus.OK)
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
