@@ -59,9 +59,6 @@ public class LinkedQueue {
         if(req1.getPriority()>req2.getPriority()){
             return true;
         }
-        else if(req1.getPriority() == req2.getPriority() && req1.getIdToDataBase()<req2.getIdToDataBase()){
-            return true;
-        }
         else {
             return false;
         }
