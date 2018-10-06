@@ -1,5 +1,6 @@
 package com.queue.q.Queue;
 
+import com.queue.q.LinkedQueuesRealisation.LinkedQueue;
 import com.queue.q.Request;
 import org.springframework.stereotype.Component;
 
@@ -10,13 +11,13 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Component("DeviceQueue")
 public class DeviceQueue implements IQueue {
-    private Queue<Request> queue  = new PriorityQueue<>(new Comparator());
+    private LinkedQueue queue = new LinkedQueue();
+    private Lock lock = new ReentrantLock();
 
     public void setRequest (Request request) {
-        Lock lock = new ReentrantLock();
         lock.lock();
         try {
-            queue.add(request);
+            queue.setRequest(request);
         }
         finally {
             lock.unlock();
@@ -24,10 +25,9 @@ public class DeviceQueue implements IQueue {
     }
 
     public Request getRequest(){
-        Lock lock = new ReentrantLock();
         lock.lock();
         try {
-            return queue.poll();
+            return queue.getRequest();
         }
         finally {
             lock.unlock();
