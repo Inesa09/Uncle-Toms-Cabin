@@ -18,7 +18,7 @@ public class UserController {
 
         ResponseEntity<Request> responceUser = postRequest(requestToUserService, userUrl);
 
-        if(responceUser.getStatusCodeValue() == HttpStatus.OK.value()){
+        if(responceUser.getStatusCode() == HttpStatus.OK){
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
