@@ -6,7 +6,7 @@ import com.queue.q.Request;
 public class LinkedQueueNode {
     private Request request;
     private LinkedQueueNode nodeNext;
-    private LinkedQueueNode nodeLast;
+    private LinkedQueueNode nodePrevious;
 
     public void setRequest(Request request) {
         this.request = request;
@@ -25,11 +25,11 @@ public class LinkedQueueNode {
     }
 
     public LinkedQueueNode getNodeLast() {
-        return nodeLast;
+        return nodePrevious;
     }
 
     public void setNodeLast(LinkedQueueNode nodeLast) {
-        this.nodeLast = nodeLast;
+        this.nodePrevious = nodeLast;
     }
 }
 
