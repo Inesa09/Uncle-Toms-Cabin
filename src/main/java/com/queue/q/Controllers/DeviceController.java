@@ -19,9 +19,6 @@ public class DeviceController {
 
     @GetMapping
     public ResponseEntity<Request> checkDeviceRequest(){
-        String s = "MaxLoh";
-        Request request = new Request((byte)1, (byte)1, s);
-        deviceQueue.setRequest(request);
         if(deviceQueue.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(deviceQueue.getRequest(),HttpStatus.OK);
