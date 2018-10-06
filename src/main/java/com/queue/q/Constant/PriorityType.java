@@ -1,4 +1,4 @@
-package com.queue.q;
+package com.queue.q.Constant;
 
 public class PriorityType {
     public static final int LOWPRIORITY = 1;
