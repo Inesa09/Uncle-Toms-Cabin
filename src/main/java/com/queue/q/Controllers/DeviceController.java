@@ -28,7 +28,7 @@ public class DeviceController {
     }
     @PostMapping
     public ResponseEntity<Request> postDeviceRequest(@RequestBody Request request){
-        if(request.getTimelock() == 0){
+        if(request.getTimelock() != 0){
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 @Override
