@@ -19,12 +19,11 @@ public class PostController {
     public ResponseEntity<Object> postToMobileAndWeb(@RequestBody Request requestToPost){
         String mobileUrl = "http://localhost:8080/mobile";
         String webUrl = "http://localhost:8080/web";
-        int response1, response2;
 
-        response1 = postRequest(requestToPost, mobileUrl).getStatusCodeValue();
-        response2 = postRequest(requestToPost, webUrl).getStatusCodeValue();
+        ResponseEntity<Request> mobileResponce = postRequest(requestToPost, mobileUrl);
+        ResponseEntity<Request> webResponce = postRequest(requestToPost, webUrl);
 
-        if(response1<300 && response2<300)
+        if(mobileResponce.getStatusCode() == HttpStatus.OK && webResponce.getStatusCode() == HttpStatus.OK)
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

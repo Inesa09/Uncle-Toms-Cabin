@@ -16,14 +16,15 @@ public class UserController {
     public ResponseEntity<Request> sendRequestToUserService(@RequestBody Request requestToUserService){
         String userUrl = "http://localhost:8080/userservice";
 
-        int responce;
-        responce = postRequest(requestToUserService, userUrl).getStatusCodeValue();
+        ResponseEntity<Request> responceUser = postRequest(requestToUserService, userUrl);
 
-        if(responce == 200){
+        if(responceUser.getStatusCodeValue() == HttpStatus.OK.value()){
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
     private ResponseEntity<Request>  postRequest(Request requestToPost, String url){
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<Request> request = new HttpEntity<>(requestToPost);
@@ -32,3 +33,4 @@ public class UserController {
         return response;
     }
 }
+
