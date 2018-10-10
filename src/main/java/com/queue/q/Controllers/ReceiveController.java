@@ -30,10 +30,10 @@ public class ReceiveController {
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
         switch (request.getServiceId()){
-            case (ServiceID.DEVICEID):
+            case (ServiceID.DEVICE_ID):
                 return postRequestInQueue(deviceQueue, request);
 
-            case (ServiceID.VIDEOID):
+            case (ServiceID.VIDEO_ID):
                 return postRequestInQueue(videoQueue, request);
 
             default:
@@ -48,7 +48,7 @@ public class ReceiveController {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    request.setPriority(PriorityType.HIGHPRIORITY);
+                    request.setPriority(PriorityType.HIGH_PRIORITY);
                     queue.setRequest(request);
                 }
             };

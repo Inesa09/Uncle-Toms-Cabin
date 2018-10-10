@@ -16,9 +16,9 @@ public class UserController {
     public ResponseEntity<Request> sendRequestToUserService(@RequestBody Request requestToUserService){
         String userUrl = "http://localhost:8080/userservice";
 
-        ResponseEntity<Request> responceUser = postRequest(requestToUserService, userUrl);
+        ResponseEntity<Request> responseUser = postRequest(requestToUserService, userUrl);
 
-        if(responceUser.getStatusCode() == HttpStatus.OK){
+        if(responseUser.getStatusCode() == HttpStatus.OK){
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
