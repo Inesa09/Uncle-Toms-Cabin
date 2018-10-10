@@ -6,7 +6,7 @@ public class Request {
     private byte serviceId;
     private int priority;
     private int timelock = 0;
-    private int idToDataBase;
+    private int requestDBid;
     private Object request;
 
     public Request() {
@@ -45,7 +45,7 @@ public class Request {
     }
 
     public int getIdToDataBase() {
-        return idToDataBase;
+        return requestDBid;
     }
 
     public void setServiceId(byte serviceId) {
@@ -64,8 +64,8 @@ public class Request {
         this.timelock = timelock;
     }
 
-    public void setIdToDataBase(int idToDataBase) {
-        this.idToDataBase = idToDataBase;
+    public void setIdToDataBase(int requestDBid) {
+        this.requestDBid = requestDBid;
     }
 }
 

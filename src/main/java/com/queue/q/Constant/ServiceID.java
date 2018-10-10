@@ -1,8 +1,8 @@
 package com.queue.q.Constant;
 
 public class ServiceID {
-    public static final int DEVICEID = 1;
-    public static final int VIDEOID = 2;
+    public static final int DEVICE_ID = 1;
+    public static final int VIDEO_ID = 2;
 
-    private ServiceID(){};
+    private ServiceID(){}
 }
