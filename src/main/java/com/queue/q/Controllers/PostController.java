@@ -1,6 +1,10 @@
 package com.queue.q.Controllers;
 
+import com.queue.q.Queue.IPostQueue;
+import com.queue.q.Queue.IQueue;
+import com.queue.q.Queue.PostRequestQueue;
 import com.queue.q.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -14,18 +18,26 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/post")
 public class PostController {
+     private static final String MOBILE_URL = "http://localhost:8080/mobile";
+     private static final String WEB_URL = "http://localhost:8080/web";
+
+    @Autowired
+    private PostRequestQueue mobileQueue;
+    @Autowired
+    private PostRequestQueue webQueue;
 
     @PostMapping
-    public ResponseEntity<Object> postToMobileAndWeb(@RequestBody Request requestToPost){
-        String mobileUrl = "http://localhost:8080/mobile";
-        String webUrl = "http://localhost:8080/web";
+    public void postToMobileAndWeb(@RequestBody Request requestToPost){
 
-        ResponseEntity<Request> mobileResponse = postRequest(requestToPost, mobileUrl);
-        ResponseEntity<Request> webResponse = postRequest(requestToPost, webUrl);
+        mobileQueue.setRequest(requestToPost);
+        webQueue.setRequest(requestToPost);
 
-        if(mobileResponse.getStatusCode() == HttpStatus.OK && webResponse.getStatusCode() == HttpStatus.OK)
-            return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Thread ThreadToWeb = new Thread(() -> sendAllRequest(webQueue, WEB_URL));
+        ThreadToWeb.start();
+
+        sendAllRequest(mobileQueue, MOBILE_URL);
+
+
     }
 
     private ResponseEntity<Request>  postRequest(Request requestToPost, String url){
@@ -35,4 +47,18 @@ public class PostController {
                 .exchange(url, HttpMethod.POST, request, Request.class);
         return response;
     }
+
+    private void sendAllRequest(IPostQueue queue, String URL){
+        while(!queue.isEmpty()){
+            ResponseEntity<Request> response = postRequest(queue.peekRequest(), URL);
+            if((response.getStatusCode() == HttpStatus.OK)){
+               queue.getRequest();
+            }
+            else {
+                return;
+            }
+        }
+    }
 }
+
+
