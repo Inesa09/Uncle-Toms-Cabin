@@ -1,7 +1,8 @@
 package com.queue.q.Controllers;
 
-import com.queue.q.Constant.ServiceID;
+import com.queue.db.service.IRequestService;
 import com.queue.q.Constant.PriorityType;
+import com.queue.q.Constant.ServiceID;
 import com.queue.q.Queue.DeviceQueue;
 import com.queue.q.Queue.IQueue;
 import com.queue.q.Queue.VideoQueue;
@@ -27,8 +28,14 @@ public class ReceiveController {
     @Autowired
     VideoQueue videoQueue;
 
+    @Autowired
+    IRequestService requestService;
+
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
+        request = requestService.saveAndSetId(request);
+        System.out.println(request.getRequestDBId());
+
         switch (request.getServiceId()){
             case (ServiceID.DEVICE_ID):
                 return postRequestInQueue(deviceQueue, request);
@@ -40,7 +47,6 @@ public class ReceiveController {
                 return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
         }
     }
-
 
     private ResponseEntity<Request> postRequestInQueue(IQueue queue , Request request){
         if(request.getTimeLock() != 0){

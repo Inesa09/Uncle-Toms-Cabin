@@ -1,7 +1,7 @@
 package com.queue.q.Controllers;
 
+import com.queue.db.service.IRequestService;
 import com.queue.q.Queue.IPostQueue;
-import com.queue.q.Queue.IQueue;
 import com.queue.q.Queue.PostRequestQueue;
 import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,12 @@ public class PostController {
     @Autowired
     private PostRequestQueue webQueue;
 
+    @Autowired
+    IRequestService requestService;
+
     @PostMapping
     public void postToMobileAndWeb(@RequestBody Request requestToPost){
+        requestService.updateToExecuted(requestToPost.getRequestDBId());
 
         mobileQueue.setRequest(requestToPost);
         webQueue.setRequest(requestToPost);
