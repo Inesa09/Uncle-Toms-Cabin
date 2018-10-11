@@ -22,18 +22,6 @@ public class DBController {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    @GetMapping("allUnexecuted")
-    public ResponseEntity<List<Request>> getAllUnexecuted(){
-        List<Request> list = requestService.getAllUnexecuted();
-        return new ResponseEntity<>(list,HttpStatus.OK);
-    }
-
-    @PostMapping("add")
-    public ResponseEntity<Integer> add(@RequestBody Request request){
-        int maxId = requestService.addRequest(request);
-        return new ResponseEntity<>(maxId, HttpStatus.OK);
-    }
-
     @PutMapping("update")
     public ResponseEntity<Object> update(@RequestBody int id){
         requestService.updateToExecuted(id);
