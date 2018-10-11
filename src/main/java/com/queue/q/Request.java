@@ -1,71 +1,67 @@
 package com.queue.q;
 
-
-
 public class Request {
+    private int requestDBId;
     private byte serviceId;
-    private int priority;
-    private int timelock = 0;
-    private int idToDataBase;
-    private Object request;
+    private byte priority;
+    private int timeLock = 0;
+    private Object body;
 
     public Request() {
         super();
     }
 
-
-
-    public Request(byte serviceId, int priority, int timelock, Object request){
+    public Request(byte serviceId, byte priority, int timeLock, Object body){
         this.serviceId = serviceId;
         this.priority = priority;
-        this.timelock = timelock;
-        this.request = request;
+        this.timeLock = timeLock;
+        this.body = body;
     }
 
-    public Request(byte serviceId, int priority, Object request){
+    public Request(byte serviceId, byte priority, Object body){
         this.serviceId = serviceId;
         this.priority = priority;
-        this.request = request;
+        this.body = body;
+    }
+
+    public int getRequestDBId() {
+        return requestDBId;
+    }
+
+    public void setRequestDBId(int requestDBId) {
+        this.requestDBId = requestDBId;
     }
 
     public byte getServiceId() {
         return serviceId;
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
-    public Object getRequest() {
-        return request;
-    }
-
-    public int getTimelock() {
-        return timelock;
-    }
-
-    public int getIdToDataBase() {
-        return idToDataBase;
-    }
-
     public void setServiceId(byte serviceId) {
         this.serviceId = serviceId;
     }
 
-    public void setPriority(int priority) {
+    public byte getPriority() {
+        return priority;
+    }
+
+    public void setPriority(byte priority) {
         this.priority = priority;
     }
 
-    public void setRequest(Object request) {
-        this.request = request;
+    public int getTimeLock() {
+        return timeLock;
     }
 
-    public void setTimelock(int timelock) {
-        this.timelock = timelock;
+    public void setTimeLock(int timeLock) {
+        this.timeLock = timeLock;
     }
 
-    public void setIdToDataBase(int idToDataBase) {
-        this.idToDataBase = idToDataBase;
+    public Object getBody() {
+        return body;
+    }
+
+    public void setBody(Object body) {
+        this.body = body;
     }
 }
 
