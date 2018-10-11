@@ -6,6 +6,7 @@ import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +54,7 @@ public class RequestDAO implements IRequestDAO {
     @Override
     public boolean isExists(int requestId) {
         String sql = "SELECT * FROM requests WHERE id=?";
-        int count = jdbcTemplate.batchUpdate(sql)[0];
-        return count != 0;
+        SqlRowSet set = jdbcTemplate.queryForRowSet(sql, requestId);
+        return set.next();
     }
 }
