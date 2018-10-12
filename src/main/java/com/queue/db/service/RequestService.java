@@ -2,14 +2,11 @@ package com.queue.db.service;
 
 import com.queue.db.dao.IRequestDAO;
 import com.queue.db.entity.RequestDB;
-import com.queue.q.Queue.DeviceQueue;
-import com.queue.q.Queue.IQueue;
-import com.queue.q.Queue.VideoQueue;
+import com.queue.q.LinkedQueuesRealisation.LinkedQueue;
 import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,15 +21,13 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public List<IQueue> getQueuesWithUnexecutedRequests() {
+    public LinkedQueue[] getQueuesWithUnexecutedRequests() {
         List<Request> unexecuted = requestDAO.getAllUnexecuted();
-        List<IQueue> queues = new ArrayList<>();
-        queues.add(new DeviceQueue());
-        queues.add(new VideoQueue());
+        LinkedQueue[] queues = new LinkedQueue[] {new LinkedQueue(), new LinkedQueue()};
         for(Request request : unexecuted){
             int serviceId = request.getServiceId();
             int queuePosition = serviceId-1;
-            queues.get(queuePosition).setRequest(request);
+            queues[queuePosition].setRequest(request);
         }
         return queues;
     }
