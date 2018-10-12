@@ -34,7 +34,6 @@ public class ReceiveController {
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
         request = requestService.saveAndSetId(request);
-        System.out.println(request.getRequestDBId());
 
         switch (request.getServiceId()){
             case (ServiceID.DEVICE_ID):
