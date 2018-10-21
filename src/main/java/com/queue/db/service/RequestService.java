@@ -37,7 +37,7 @@ public class RequestService implements IRequestService {
         RequestDB newRequest = new RequestDB(request);
         requestDAO.add(newRequest);
         int requestDBId = requestDAO.getLastId();
-        request.setRequestDBId(requestDBId);
+        request.setId(requestDBId);
         return request;
     }
 

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class RequestDB extends Request {
 
-    private boolean executed = false;
+    private int status;
     private Date creationTime;
     private Date completionTime;
 
@@ -15,12 +15,12 @@ public class RequestDB extends Request {
         super(r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getBody());
     }
 
-    public boolean isExecuted() {
-        return executed;
+    public int getStatus() {
+        return status;
     }
 
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Date getCreationTime() {

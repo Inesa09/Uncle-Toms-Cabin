@@ -1,4 +1,4 @@
-package com.queue.q.Constant;
+package com.queue.constants;
 
 public class ServiceID {
     public static final byte DEVICE_ID = 1;

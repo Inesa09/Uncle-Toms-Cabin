@@ -36,7 +36,7 @@ public class RequestDAO implements IRequestDAO {
     @Override
     public void add(RequestDB r) {
         String sql = "INSERT INTO requests(service_id, priority, time_lock, body, executed) VALUES(?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getBody(), r.isExecuted());
+        jdbcTemplate.update(sql, r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getBody(), r.getStatus());
     }
 
     @Override

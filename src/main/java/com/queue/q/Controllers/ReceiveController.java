@@ -1,8 +1,8 @@
 package com.queue.q.Controllers;
 
 import com.queue.db.service.IRequestService;
-import com.queue.q.Constant.PriorityType;
-import com.queue.q.Constant.ServiceID;
+import com.queue.constants.PriorityType;
+import com.queue.constants.ServiceID;
 import com.queue.q.Queue.DeviceQueue;
 import com.queue.q.Queue.IQueue;
 import com.queue.q.Queue.VideoQueue;

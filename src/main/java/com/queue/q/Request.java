@@ -1,7 +1,7 @@
 package com.queue.q;
 
 public class Request {
-    private int requestDBId;
+    private int id;
     private byte serviceId;
     private byte priority;
     private int timeLock = 0;
@@ -24,12 +24,12 @@ public class Request {
         this.body = body;
     }
 
-    public int getRequestDBId() {
-        return requestDBId;
+    public int getId() {
+        return id;
     }
 
-    public void setRequestDBId(int requestDBId) {
-        this.requestDBId = requestDBId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public byte getServiceId() {

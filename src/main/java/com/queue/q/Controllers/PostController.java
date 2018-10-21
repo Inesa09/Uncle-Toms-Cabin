@@ -31,7 +31,7 @@ public class PostController {
 
     @PostMapping
     public void postToMobileAndWeb(@RequestBody Request requestToPost){
-        requestService.updateToExecuted(requestToPost.getRequestDBId());
+        requestService.updateToExecuted(requestToPost.getId());
 
         mobileQueue.setRequest(requestToPost);
         webQueue.setRequest(requestToPost);

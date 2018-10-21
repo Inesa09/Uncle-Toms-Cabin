@@ -13,11 +13,11 @@ public class RequestRowMapper implements RowMapper<Request> {
     @Override
     public Request mapRow(ResultSet row, int rowNum) throws SQLException {
         RequestDB request = new RequestDB();
-        request.setRequestDBId(row.getInt("id"));
+        request.setId(row.getInt("id"));
         request.setServiceId(row.getByte("service_id"));
         request.setPriority(row.getByte("priority"));
         request.setTimeLock(row.getInt("time_lock"));
-        request.setExecuted(row.getBoolean("executed"));
+        request.setStatus(row.getByte("status"));
         request.setBody(deserialization(row, "body"));
         request.setCreationTime(row.getTime("creation_time"));
         request.setCompletionTime(row.getTime("completion_time"));
