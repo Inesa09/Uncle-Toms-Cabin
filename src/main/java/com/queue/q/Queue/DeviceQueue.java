@@ -8,7 +8,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Component("DeviceQueue")
-public class DeviceQueue implements IServiceQueue {
+public class DeviceQueue implements IQueue {
     private LinkedQueue queue = new LinkedQueue();
     private Lock lock = new ReentrantLock();
 
