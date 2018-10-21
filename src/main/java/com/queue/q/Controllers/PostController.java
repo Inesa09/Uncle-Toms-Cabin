@@ -9,10 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -40,8 +37,6 @@ public class PostController {
         ThreadToWeb.start();
 
         sendAllRequest(mobileQueue, MOBILE_URL);
-
-
     }
 
     private ResponseEntity<Request>  postRequest(Request requestToPost, String url){
@@ -56,9 +51,9 @@ public class PostController {
         while(!queue.isEmpty()){
             ResponseEntity<Request> response = postRequest(queue.peekRequest(), URL);
             if((response.getStatusCode() == HttpStatus.OK)){
-               queue.getRequest();
-            }
-            else {
+               Request request = queue.getRequest();
+               requestService.updateToSent(request.getId());
+            } else {
                 return;
             }
         }
