@@ -1,8 +1,11 @@
 package com.queue.db.service;
 
+import com.queue.constants.ServiceID;
 import com.queue.db.dao.IRequestDAO;
 import com.queue.db.entity.RequestDB;
-import com.queue.q.LinkedQueuesRealisation.LinkedQueue;
+import com.queue.q.Queue.DeviceQueue;
+import com.queue.q.Queue.PostRequestQueue;
+import com.queue.q.Queue.VideoQueue;
 import com.queue.q.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +18,39 @@ public class RequestService implements IRequestService {
     @Autowired
     private IRequestDAO requestDAO;
 
+    @Autowired
+    private DeviceQueue deviceQueue;
+    @Autowired
+    private VideoQueue videoQueue;
+    @Autowired
+    private PostRequestQueue postRequestQueue;
+
     @Override
-    public List<Request> getAll() {
+    public List<RequestDB> getAll() {
         return requestDAO.getAll();
     }
 
     @Override
-    public LinkedQueue[] getQueuesWithUnexecutedRequests() {
-        List<Request> unexecuted = requestDAO.getAllUnexecuted();
-        LinkedQueue[] queues = new LinkedQueue[] {new LinkedQueue(), new LinkedQueue()};
+    public void fillQueuesWithUnexecutedRequests() {
+        List<RequestDB> unexecuted = requestDAO.getAllUnexecuted();
         for(Request request : unexecuted){
             int serviceId = request.getServiceId();
-            int queuePosition = serviceId-1;
-            queues[queuePosition].setRequest(request);
+            switch (serviceId) {
+                case (ServiceID.DEVICE_ID):
+                    deviceQueue.setRequest(request);
+                    break;
+                case (ServiceID.VIDEO_ID):
+                    videoQueue.setRequest(request);
+                    break;
+            }
         }
-        return queues;
+    }
+
+    @Override
+    public void fillQueueWithUnsentRequests(){
+        List<RequestDB> unsent = requestDAO.getAllUnsent();
+        for(Request request : unsent)
+            postRequestQueue.setRequest(request);
     }
 
     @Override
@@ -45,5 +66,11 @@ public class RequestService implements IRequestService {
     public void updateToExecuted(int requestId) {
         if(requestDAO.isExists(requestId))
             requestDAO.updateToExecuted(requestId);
+    }
+
+    @Override
+    public void updateToSent(int requestId) {
+        if(requestDAO.isExists(requestId))
+            requestDAO.updateToSent(requestId);
     }
 }
