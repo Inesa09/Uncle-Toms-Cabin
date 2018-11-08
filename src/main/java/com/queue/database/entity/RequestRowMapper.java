@@ -1,4 +1,4 @@
-package com.queue.db.entity;
+package com.queue.database.entity;
 
 import org.springframework.jdbc.core.RowMapper;
 

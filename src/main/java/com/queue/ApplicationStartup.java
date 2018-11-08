@@ -1,6 +1,6 @@
 package com.queue;
 
-import com.queue.db.service.IRequestService;
+import com.queue.database.service.IRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;

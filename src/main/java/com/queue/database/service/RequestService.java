@@ -1,12 +1,12 @@
-package com.queue.db.service;
+package com.queue.database.service;
 
 import com.queue.constants.ServiceID;
-import com.queue.db.dao.IRequestDAO;
-import com.queue.db.entity.RequestDB;
-import com.queue.q.Queue.DeviceQueue;
-import com.queue.q.Queue.PostRequestQueue;
-import com.queue.q.Queue.VideoQueue;
-import com.queue.q.Request;
+import com.queue.database.dao.IRequestDAO;
+import com.queue.database.entity.RequestDB;
+import com.queue.queue.Queue.DeviceQueue;
+import com.queue.queue.Queue.PostRequestQueue;
+import com.queue.queue.Queue.VideoQueue;
+import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

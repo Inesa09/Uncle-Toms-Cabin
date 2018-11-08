@@ -1,6 +1,6 @@
-package com.queue.q.Queue;
+package com.queue.queue.Queue;
 
-import com.queue.q.Request;
+import com.queue.queue.Request;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;

@@ -1,6 +1,6 @@
-package com.queue.q.Controllers;
+package com.queue.queue.Controllers;
 
-import com.queue.q.Queue.VideoQueue;
+import com.queue.queue.Queue.VideoQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

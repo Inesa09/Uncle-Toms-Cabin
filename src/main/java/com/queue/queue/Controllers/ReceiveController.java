@@ -1,12 +1,12 @@
-package com.queue.q.Controllers;
+package com.queue.queue.Controllers;
 
-import com.queue.db.service.IRequestService;
+import com.queue.database.service.IRequestService;
 import com.queue.constants.PriorityType;
 import com.queue.constants.ServiceID;
-import com.queue.q.Queue.DeviceQueue;
-import com.queue.q.Queue.IQueue;
-import com.queue.q.Queue.VideoQueue;
-import com.queue.q.Request;
+import com.queue.queue.Queue.DeviceQueue;
+import com.queue.queue.Queue.IQueue;
+import com.queue.queue.Queue.VideoQueue;
+import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

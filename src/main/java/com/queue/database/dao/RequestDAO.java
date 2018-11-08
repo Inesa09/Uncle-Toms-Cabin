@@ -1,7 +1,7 @@
-package com.queue.db.dao;
+package com.queue.database.dao;
 
-import com.queue.db.entity.RequestDB;
-import com.queue.db.entity.RequestRowMapper;
+import com.queue.database.entity.RequestDB;
+import com.queue.database.entity.RequestRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

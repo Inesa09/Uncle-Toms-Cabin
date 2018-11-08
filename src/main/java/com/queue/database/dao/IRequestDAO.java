@@ -1,6 +1,6 @@
-package com.queue.db.dao;
+package com.queue.database.dao;
 
-import com.queue.db.entity.RequestDB;
+import com.queue.database.entity.RequestDB;
 
 import java.util.List;
 

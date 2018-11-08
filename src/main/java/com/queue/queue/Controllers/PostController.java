@@ -1,9 +1,9 @@
-package com.queue.q.Controllers;
+package com.queue.queue.Controllers;
 
-import com.queue.db.service.IRequestService;
-import com.queue.q.Queue.IPostQueue;
-import com.queue.q.Queue.PostRequestQueue;
-import com.queue.q.Request;
+import com.queue.database.service.IRequestService;
+import com.queue.queue.Queue.IPostQueue;
+import com.queue.queue.Queue.PostRequestQueue;
+import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

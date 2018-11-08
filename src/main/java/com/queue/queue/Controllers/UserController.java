@@ -1,6 +1,6 @@
-package com.queue.q.Controllers;
+package com.queue.queue.Controllers;
 
-import com.queue.q.Request;
+import com.queue.queue.Request;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;

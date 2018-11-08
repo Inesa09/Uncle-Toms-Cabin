@@ -1,6 +1,6 @@
-package com.queue.q.LinkedQueuesRealisation;
+package com.queue.queue.LinkedQueuesRealisation;
 
-import com.queue.q.Request;
+import com.queue.queue.Request;
 
 
 public class LinkedQueueNode {

@@ -1,4 +1,4 @@
-package com.queue.q;
+package com.queue.queue;
 
 public class Request {
     private int id;

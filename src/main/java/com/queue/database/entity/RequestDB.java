@@ -1,6 +1,6 @@
-package com.queue.db.entity;
+package com.queue.database.entity;
 
-import com.queue.q.Request;
+import com.queue.queue.Request;
 import java.util.Date;
 
 public class RequestDB extends Request {

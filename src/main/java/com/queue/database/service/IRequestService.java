@@ -1,7 +1,7 @@
-package com.queue.db.service;
+package com.queue.database.service;
 
-import com.queue.db.entity.RequestDB;
-import com.queue.q.Request;
+import com.queue.database.entity.RequestDB;
+import com.queue.queue.Request;
 
 import java.util.List;
 
