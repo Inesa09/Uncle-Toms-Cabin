@@ -6,6 +6,7 @@ import com.queue.constants.ServiceID;
 import com.queue.queue.Queue.DeviceQueue;
 import com.queue.queue.Queue.IQueue;
 import com.queue.queue.Queue.VideoQueue;
+import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +25,7 @@ public class ReceiveController {
     private static final int MINToMILLISECOND = 60000;
 
     @Autowired
-    DeviceQueue deviceQueue;
-    @Autowired
-    VideoQueue videoQueue;
+    QueueRepository repository;
 
     @Autowired
     IRequestService requestService;
@@ -35,15 +34,11 @@ public class ReceiveController {
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
         request = requestService.saveAndSetId(request);
 
-        switch (request.getServiceId()){
-            case (ServiceID.DEVICE_ID):
-                return postRequestInQueue(deviceQueue, request);
-
-            case (ServiceID.VIDEO_ID):
-                return postRequestInQueue(videoQueue, request);
-
-            default:
-                return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
+        if(repository.getQueueByServiceID(request.getServiceId())!=null){
+            return postRequestInQueue(repository.getQueueByServiceID(request.getServiceId()), request);
+        }
+        else {
+            return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
         }
     }
 

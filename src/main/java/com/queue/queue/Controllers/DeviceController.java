@@ -1,6 +1,8 @@
 package com.queue.queue.Controllers;
 
+import com.queue.constants.ServiceID;
 import com.queue.queue.Queue.DeviceQueue;
+import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeviceController {
 
     @Autowired
-    private DeviceQueue deviceQueue;
+    private QueueRepository repository;
 
     @GetMapping
     public ResponseEntity<Request> checkDeviceRequest(){
-        if(deviceQueue.isEmpty())
+        if(repository.getQueueByServiceID(ServiceID.DEVICE_ID).isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(deviceQueue.getRequest(),HttpStatus.OK);
+        return new ResponseEntity<>(repository.getQueueByServiceID(ServiceID.DEVICE_ID).getRequest(),HttpStatus.OK);
     }
 
 }

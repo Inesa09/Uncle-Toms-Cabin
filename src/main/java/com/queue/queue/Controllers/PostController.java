@@ -1,8 +1,10 @@
 package com.queue.queue.Controllers;
 
+import com.queue.constants.ServiceID;
 import com.queue.database.service.IRequestService;
 import com.queue.queue.Queue.IPostQueue;
 import com.queue.queue.Queue.PostRequestQueue;
+import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -19,9 +21,8 @@ public class PostController {
      private static final String WEB_URL = "http://localhost:8080/web";
 
     @Autowired
-    private PostRequestQueue mobileQueue;
-    @Autowired
-    private PostRequestQueue webQueue;
+    private QueueRepository repository;
+
 
     @Autowired
     IRequestService requestService;
@@ -30,13 +31,13 @@ public class PostController {
     public void postToMobileAndWeb(@RequestBody Request requestToPost){
         requestService.updateToExecuted(requestToPost.getId());
 
-        mobileQueue.setRequest(requestToPost);
-        webQueue.setRequest(requestToPost);
+        repository.getQueueByServiceID(ServiceID.MOBILE_ID).setRequest(requestToPost);
+        repository.getQueueByServiceID(ServiceID.WEB_ID).setRequest(requestToPost);
 
-        Thread ThreadToWeb = new Thread(() -> sendAllRequest(webQueue, WEB_URL));
+        Thread ThreadToWeb = new Thread(() -> sendAllRequest((IPostQueue)repository.getQueueByServiceID(ServiceID.WEB_ID), WEB_URL));
         ThreadToWeb.start();
 
-        sendAllRequest(mobileQueue, MOBILE_URL);
+        sendAllRequest((IPostQueue)repository.getQueueByServiceID(ServiceID.MOBILE_ID), MOBILE_URL);
     }
 
     private ResponseEntity<Request>  postRequest(Request requestToPost, String url){
