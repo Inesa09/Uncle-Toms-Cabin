@@ -1,26 +1,20 @@
 package com.queue.database.dao;
 
-import com.queue.database.entity.RequestDB;
+import com.queue.database.entity.RequestEntity;
+import com.queue.queue.Request;
 
 import java.util.List;
 
-
 public interface IRequestDAO {
 
-    List<RequestDB> getAll();
+    List<RequestEntity> getAllWithTheSameStatus(byte statusId);
 
-    List<RequestDB> getAllUnexecuted();
+    void add(Request request);
 
-    List<RequestDB> getAllUnsent();
+    void updateStatus(String guid, byte statusId);
 
-    int getLastId();
+    void updateCompletionTime(String guid);
 
-    void add(RequestDB request);
-
-    void updateToExecuted(int requestId);
-
-    void updateToSent(int requestId);
-
-    boolean isExists(int requestId);
+    boolean isExists(String guid);
 }
 

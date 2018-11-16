@@ -1,76 +1,65 @@
 package com.queue.database.service;
 
-import com.queue.constants.ServiceID;
 import com.queue.database.dao.IRequestDAO;
-import com.queue.database.entity.RequestDB;
-import com.queue.queue.Queue.DeviceQueue;
-import com.queue.queue.Queue.PostRequestQueue;
-import com.queue.queue.Queue.VideoQueue;
+import com.queue.database.entity.RequestEntity;
+import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.queue.constants.ServiceID.MOBILE_ID;
+import static com.queue.constants.ServiceID.WEB_ID;
+import static com.queue.constants.StatusID.*;
+
 @Service
 public class RequestService implements IRequestService {
 
     @Autowired
-    private IRequestDAO requestDAO;
+    IRequestDAO requestDAO;
 
     @Autowired
-    private DeviceQueue deviceQueue;
-    @Autowired
-    private VideoQueue videoQueue;
-    @Autowired
-    private PostRequestQueue postRequestQueue;
-
-    @Override
-    public List<RequestDB> getAll() {
-        return requestDAO.getAll();
-    }
+    QueueRepository repository;
 
     @Override
     public void fillQueuesWithUnexecutedRequests() {
-        List<RequestDB> unexecuted = requestDAO.getAllUnexecuted();
+        List<RequestEntity> unexecuted = requestDAO.getAllWithTheSameStatus(RECEIVED);
         for(Request request : unexecuted){
             int serviceId = request.getServiceId();
-            switch (serviceId) {
-                case (ServiceID.DEVICE_ID):
-                    deviceQueue.setRequest(request);
-                    break;
-                case (ServiceID.VIDEO_ID):
-                    videoQueue.setRequest(request);
-                    break;
-            }
+            repository.getQueueByServiceID(serviceId).setRequest(request);
         }
     }
 
     @Override
     public void fillQueueWithUnsentRequests(){
-        List<RequestDB> unsent = requestDAO.getAllUnsent();
-        for(Request request : unsent)
-            postRequestQueue.setRequest(request);
+        List<RequestEntity> unsent = requestDAO.getAllWithTheSameStatus(EXECUTED);
+        for(Request request : unsent) {
+            repository.getQueueByServiceID(MOBILE_ID).setRequest(request);
+            repository.getQueueByServiceID(WEB_ID).setRequest(request);
+        }
     }
 
     @Override
-    public synchronized Request saveAndSetId(Request request){
-        RequestDB newRequest = new RequestDB(request);
+    public synchronized Request save(Request request){
+        RequestEntity newRequest = new RequestEntity(request);
         requestDAO.add(newRequest);
-        int requestDBId = requestDAO.getLastId();
-        request.setId(requestDBId);
         return request;
     }
 
     @Override
-    public void updateToExecuted(int requestId) {
-        if(requestDAO.isExists(requestId))
-            requestDAO.updateToExecuted(requestId);
+    public void updateToExecuted(String guid) {
+        requestDAO.updateCompletionTime(guid);
+        updateStatus(guid, EXECUTED);
     }
 
     @Override
-    public void updateToSent(int requestId) {
-        if(requestDAO.isExists(requestId))
-            requestDAO.updateToSent(requestId);
+    public void updateToSent(String guid) {
+        updateStatus(guid, SENT);
+    }
+
+    private void updateStatus(String guid, byte statusId){
+        if(requestDAO.isExists(guid))
+            requestDAO.updateStatus(guid, statusId);
     }
 }

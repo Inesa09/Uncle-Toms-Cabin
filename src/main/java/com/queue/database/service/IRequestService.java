@@ -1,21 +1,16 @@
 package com.queue.database.service;
 
-import com.queue.database.entity.RequestDB;
 import com.queue.queue.Request;
 
-import java.util.List;
-
 public interface IRequestService {
-
-    List<RequestDB> getAll();
 
     void fillQueuesWithUnexecutedRequests();
 
     void fillQueueWithUnsentRequests();
 
-    Request saveAndSetId(Request request);
+    Request save(Request request);
 
-    void updateToExecuted(int requestId);
+    void updateToExecuted(String guid);
 
-    void updateToSent(int requestId);
+    void updateToSent(String guid);
 }
