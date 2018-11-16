@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import static com.queue.constants.URL.MOBILE_URL;
+import static com.queue.constants.URL.WEB_URL;
+
 @RestController
 @RequestMapping("/post")
 public class PostController {
-     private static final String MOBILE_URL = "http://localhost:8080/mobile";
-     private static final String WEB_URL = "http://localhost:8080/web";
 
     @Autowired
     private QueueRepository repository;
-
 
     @Autowired
     IRequestService requestService;
