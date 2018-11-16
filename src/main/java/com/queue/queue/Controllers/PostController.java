@@ -3,7 +3,6 @@ package com.queue.queue.Controllers;
 import com.queue.constants.ServiceID;
 import com.queue.database.service.IRequestService;
 import com.queue.queue.Queue.IPostQueue;
-import com.queue.queue.Queue.PostRequestQueue;
 import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -29,7 +31,7 @@ public class PostController {
 
     @PostMapping
     public void postToMobileAndWeb(@RequestBody Request requestToPost){
-        requestService.updateToExecuted(requestToPost.getId());
+        requestService.updateToExecuted(requestToPost.getGuid());
 
         repository.getQueueByServiceID(ServiceID.MOBILE_ID).setRequest(requestToPost);
         repository.getQueueByServiceID(ServiceID.WEB_ID).setRequest(requestToPost);
@@ -53,7 +55,7 @@ public class PostController {
             ResponseEntity<Request> response = postRequest(queue.peekRequest(), URL);
             if((response.getStatusCode() == HttpStatus.OK)){
                Request request = queue.getRequest();
-               requestService.updateToSent(request.getId());
+               requestService.updateToSent(request.getGuid());
             } else {
                 return;
             }

@@ -1,11 +1,8 @@
 package com.queue.queue.Controllers;
 
-import com.queue.database.service.IRequestService;
 import com.queue.constants.PriorityType;
-import com.queue.constants.ServiceID;
-import com.queue.queue.Queue.DeviceQueue;
+import com.queue.database.service.IRequestService;
 import com.queue.queue.Queue.IQueue;
-import com.queue.queue.Queue.VideoQueue;
 import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ public class ReceiveController {
 
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
-        request = requestService.saveAndSetId(request);
+        request = requestService.save(request);
 
         if(repository.getQueueByServiceID(request.getServiceId())!=null){
             return postRequestInQueue(repository.getQueueByServiceID(request.getServiceId()), request);
