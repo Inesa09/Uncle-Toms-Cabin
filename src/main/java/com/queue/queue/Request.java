@@ -1,14 +1,15 @@
 package com.queue.queue;
 
+
 public class Request {
-    private int id;
+
+    private String guid;
     private byte serviceId;
     private byte priority;
     private int timeLock = 0;
     private Object body;
 
     public Request() {
-        super();
     }
 
     public Request(byte serviceId, byte priority, int timeLock, Object body){
@@ -24,12 +25,12 @@ public class Request {
         this.body = body;
     }
 
-    public int getId() {
-        return id;
+    public String getGuid() {
+        return guid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public byte getServiceId() {

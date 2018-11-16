@@ -1,5 +1,6 @@
 package com.queue.database.entity;
 
+import com.queue.queue.Request;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
@@ -8,11 +9,11 @@ import java.io.ObjectInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RequestRowMapper implements RowMapper<RequestDB> {
+public class RequestRowMapper implements RowMapper<RequestEntity> {
     @Override
-    public RequestDB mapRow(ResultSet row, int rowNum) throws SQLException {
-        RequestDB request = new RequestDB();
-        request.setId(row.getInt("id"));
+    public RequestEntity mapRow(ResultSet row, int rowNum) throws SQLException {
+        RequestEntity request = new RequestEntity();
+        request.setGuid(row.getString("guid"));
         request.setServiceId(row.getByte("service_id"));
         request.setPriority(row.getByte("priority"));
         request.setTimeLock(row.getInt("time_lock"));

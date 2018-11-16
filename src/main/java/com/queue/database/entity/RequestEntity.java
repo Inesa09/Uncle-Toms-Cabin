@@ -3,15 +3,15 @@ package com.queue.database.entity;
 import com.queue.queue.Request;
 import java.util.Date;
 
-public class RequestDB extends Request {
+public class RequestEntity extends Request {
 
     private int statusId;
     private Date creationTime;
     private Date completionTime;
 
-    public RequestDB(){}
+    public RequestEntity(){}
 
-    public RequestDB(Request r){
+    public RequestEntity(Request r){
         super(r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getBody());
     }
 
