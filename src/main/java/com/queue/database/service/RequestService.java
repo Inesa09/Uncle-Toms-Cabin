@@ -41,10 +41,8 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public synchronized Request save(Request request){
-        RequestEntity newRequest = new RequestEntity(request);
-        requestDAO.add(newRequest);
-        return request;
+    public synchronized void save(Request request){
+        requestDAO.add(request);
     }
 
     @Override

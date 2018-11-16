@@ -29,7 +29,7 @@ public class ReceiveController {
 
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
-        request = requestService.save(request);
+        requestService.save(request);
 
         if(repository.getQueueByServiceID(request.getServiceId())!=null){
             return postRequestInQueue(repository.getQueueByServiceID(request.getServiceId()), request);

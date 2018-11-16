@@ -8,7 +8,7 @@ public interface IRequestService {
 
     void fillQueueWithUnsentRequests();
 
-    Request save(Request request);
+    void save(Request request);
 
     void updateToExecuted(String guid);
 
