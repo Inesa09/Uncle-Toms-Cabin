@@ -7,17 +7,19 @@ public class Request {
     private byte serviceId;
     private byte priority;
     private int timeLock = 0;
+    private int deleteTime = 0;
     private String creationTime;
     private Object body;
 
     public Request() {
     }
 
-    public Request(String guid, byte serviceId, byte priority, int timeLock, Object body){
+    public Request(String guid, byte serviceId, byte priority, int timeLock, int deleteTime, Object body){
         this.guid = guid;
         this.serviceId = serviceId;
         this.priority = priority;
         this.timeLock = timeLock;
+        this.deleteTime = deleteTime;
         this.body = body;
     }
 
@@ -57,6 +59,14 @@ public class Request {
 
     public void setTimeLock(int timeLock) {
         this.timeLock = timeLock;
+    }
+
+    public int getDeleteTime() {
+        return deleteTime;
+    }
+
+    public void setDeleteTime(int deleteTime) {
+        this.deleteTime = deleteTime;
     }
 
     public Object getBody() {
