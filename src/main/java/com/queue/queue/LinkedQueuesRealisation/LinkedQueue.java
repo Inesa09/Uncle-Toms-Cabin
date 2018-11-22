@@ -68,11 +68,11 @@ public class LinkedQueue {
         LinkedQueueNode node = headOfList;
         if(node != null) {
 
-            while((node.getRequest().getPriority() != request.getPriority() && node.getRequest().getId() != request.getId()) && node.getNodeNext()!=null ){
+            while((node.getRequest().getPriority() != request.getPriority() && !node.getRequest().getCreationTime().equals(request.getCreationTime())) && node.getNodeNext()!=null ){
                 node = node.getNodeNext();
             }
 
-            if(node.getRequest().getPriority() == request.getPriority() && node.getRequest().getId() == request.getId()){
+            if(node.getRequest().getPriority() == request.getPriority() && node.getRequest().getCreationTime().equals(request.getCreationTime())){
                 if(node.getNodeNext()!=null && node.getNodeLast()!=null) {
                     node.getNodeLast().setNodeNext(node.getNodeNext());
                     node.getNodeNext().setNodeLast(node.getNodeLast());
@@ -110,12 +110,22 @@ public class LinkedQueue {
         };
         timer.schedule(task,MINToMILLISECOND * request.getDeleteTime());
     }
+
     private boolean CompareRequest(Request req1 , Request req2){
         if(req1.getPriority()>req2.getPriority()){
             return true;
         }
-        else {
+        else if(req1.getPriority() < req2.getPriority()) {
             return false;
         }
+        else {
+            if(req1.getCreationTime().compareTo(req2.getCreationTime()) > 0){
+                return false;
+            }
+            else if(req1.getCreationTime().compareTo(req2.getCreationTime()) < 0){
+                return true;
+            }
+        }
+        return false;
     }
 }
