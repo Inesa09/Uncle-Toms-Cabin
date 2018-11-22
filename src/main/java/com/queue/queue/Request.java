@@ -12,7 +12,8 @@ public class Request {
     public Request() {
     }
 
-    public Request(byte serviceId, byte priority, int timeLock, Object body){
+    public Request(String guid, byte serviceId, byte priority, int timeLock, Object body){
+        this.guid = guid;
         this.serviceId = serviceId;
         this.priority = priority;
         this.timeLock = timeLock;
