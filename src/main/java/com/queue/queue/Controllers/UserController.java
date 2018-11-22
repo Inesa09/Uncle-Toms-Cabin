@@ -1,5 +1,6 @@
 package com.queue.queue.Controllers;
 
+import com.queue.constants.URL;
 import com.queue.queue.Request;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -14,9 +15,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Request> sendRequestToUserService(@RequestBody Request requestToUserService){
-        String userUrl = "http://localhost:8080/userservice";
 
-        ResponseEntity<Request> responseUser = postRequest(requestToUserService, userUrl);
+        ResponseEntity<Request> responseUser = postRequest(requestToUserService, URL.USER_URL);
 
         if(responseUser.getStatusCode() == HttpStatus.OK){
             return new ResponseEntity<>(HttpStatus.OK);

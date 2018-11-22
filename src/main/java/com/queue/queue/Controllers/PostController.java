@@ -1,6 +1,7 @@
 package com.queue.queue.Controllers;
 
-import com.queue.noqslDB.service.IRequestService;
+import com.queue.constants.URL;
+import com.queue.nosqlDB.service.IRequestService;
 import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
 import com.queue.queue.Response;
@@ -13,8 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-     private static final String MOBILE_URL = "http://localhost:8080/mobile";
-     private static final String WEB_URL = "http://localhost:8080/web";
 
     @Autowired
     IRequestService requestService;
@@ -23,8 +22,8 @@ public class PostController {
     public void postToMobileAndWeb(@RequestBody Response responseToPost) {
         requestService.updateToExecuted(responseToPost.getGuid());
 
-        postRequest(responseToPost, MOBILE_URL);
-        postRequest(responseToPost, WEB_URL);
+        postRequest(responseToPost, URL.MOBILE_URL);
+        postRequest(responseToPost, URL.WEB_URL);
 
     }
     private void postRequest(Response responseToPost, String url){
