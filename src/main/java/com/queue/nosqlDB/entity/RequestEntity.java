@@ -5,7 +5,6 @@ import com.queue.queue.Request;
 public class RequestEntity extends Request {
 
     private int statusId;
-    private String creationTime;
     private String completionTime;
 
     public RequestEntity(){}
@@ -20,14 +19,6 @@ public class RequestEntity extends Request {
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
-    }
-
-    public String getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
     }
 
     public String getCompletionTime() {

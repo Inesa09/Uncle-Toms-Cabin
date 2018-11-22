@@ -7,6 +7,7 @@ public class Request {
     private byte serviceId;
     private byte priority;
     private int timeLock = 0;
+    private String creationTime;
     private Object body;
 
     public Request() {
@@ -64,6 +65,14 @@ public class Request {
 
     public void setBody(Object body) {
         this.body = body;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 }
 

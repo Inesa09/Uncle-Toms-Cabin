@@ -4,8 +4,6 @@ import com.queue.queue.Request;
 
 public interface IRequestService {
 
-    String getCreationTime(String guid);
-
     void fillQueuesWithUnexecutedRequests();
 
     void save(Request request);

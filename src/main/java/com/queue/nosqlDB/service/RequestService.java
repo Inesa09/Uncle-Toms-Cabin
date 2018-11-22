@@ -21,12 +21,6 @@ public class RequestService implements IRequestService {
     QueueRepository repository;
 
     @Override
-    public String getCreationTime(String guid){
-        RequestEntity entity = requestDAO.getEntityByGuid(guid);
-        return entity.getCreationTime();
-    }
-
-    @Override
     public void fillQueuesWithUnexecutedRequests() {
         List<RequestEntity> unexecuted = requestDAO.getAllWithTheSameStatus(RECEIVED);
         for(Request request : unexecuted){
