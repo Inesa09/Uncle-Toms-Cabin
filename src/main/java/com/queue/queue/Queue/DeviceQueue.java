@@ -19,7 +19,11 @@ public class DeviceQueue implements IQueue {
     public void setRequest (Request request) {
         lock.lock();
         try {
-            queue.setRequest(request);
+            if (request.getDeleteTime() != 0) {
+                queue.setRequestWithTimeLimit(request);
+            } else {
+                queue.setRequest(request);
+            }
         }
         finally {
             lock.unlock();
