@@ -19,7 +19,12 @@ public class VideoQueue implements IQueue {
     public void setRequest (Request request){
         lock.lock();
         try {
-            queue.setRequest(request);
+            if(request.getDeleteTime() == 0) {
+                queue.setRequest(request);
+            }
+            else {
+                queue.setRequestWithTimeLimit(request);
+            }
         }
         finally {
             lock.unlock();
