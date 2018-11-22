@@ -1,6 +1,6 @@
 package com.queue.queue.Controllers;
 
-import com.queue.database.service.IRequestService;
+import com.queue.nosqlDB.service.IRequestService;
 import com.queue.queue.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

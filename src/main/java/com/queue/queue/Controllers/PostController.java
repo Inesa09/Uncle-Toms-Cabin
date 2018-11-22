@@ -1,7 +1,7 @@
 package com.queue.queue.Controllers;
 
 import com.queue.constants.ServiceID;
-import com.queue.database.service.IRequestService;
+import com.queue.nosqlDB.service.IRequestService;
 import com.queue.queue.Queue.IPostQueue;
 import com.queue.queue.QueueRepository;
 import com.queue.queue.Request;
