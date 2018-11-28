@@ -29,7 +29,7 @@ public class ReceiveController {
 
     @PostMapping
     public ResponseEntity<Request> addRequestInQueue(@RequestBody Request request){
-        requestService.save(request);
+        request = requestService.save(request);
 
         if(repository.getQueueByServiceID(request.getServiceId())!=null){
             return postRequestInQueue(repository.getQueueByServiceID(request.getServiceId()), request);
@@ -50,11 +50,11 @@ public class ReceiveController {
                 }
             };
             timer.schedule(task,MINToMILLISECOND*request.getTimeLock());
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(request, HttpStatus.OK);
         }
         else {
             queue.setRequest(request);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(request, HttpStatus.OK);
         }
     }
 }

@@ -30,8 +30,8 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public synchronized void save(Request request){
-        requestDAO.saveToDatabase(request);
+    public synchronized Request save(Request request){
+        return requestDAO.saveToDatabase(request);
     }
 
     @Override

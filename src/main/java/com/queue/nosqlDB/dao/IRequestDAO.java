@@ -11,7 +11,7 @@ public interface IRequestDAO {
 
     List<RequestEntity> getAllWithTheSameStatus(byte statusId);
 
-    void saveToDatabase(Request request);
+    Request saveToDatabase(Request request);
 
     void updateStatus(String guid, byte statusId);
 
