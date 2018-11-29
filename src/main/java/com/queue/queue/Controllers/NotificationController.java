@@ -29,7 +29,7 @@ public class NotificationController {
         if (response.getStatusCode() == HttpStatus.OK)
             requestService.updateToSent(request.getGuid());
         else
-            requestService.updateToExecuted(request.getGuid());
+            requestService.updateToUnexecuted(request.getGuid());
         return response;
     }
 

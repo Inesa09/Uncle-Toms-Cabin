@@ -10,6 +10,8 @@ public interface IRequestService {
 
     void updateToExecuted(String guid);
 
+    void updateToUnexecuted(String guid);
+
     void updateToSent(String guid);
 
     void delete(String guid);

@@ -50,6 +50,11 @@ public class RequestService implements IRequestService {
         updateStatus(guid, SENT);
     }
 
+    @Override
+    public void updateToUnexecuted(String guid){
+        updateStatus(guid, UNEXECUTED);
+    }
+
     private void updateStatus(String guid, byte statusId){
         if(requestDAO.isExists(guid))
             requestDAO.updateStatus(guid, statusId);
