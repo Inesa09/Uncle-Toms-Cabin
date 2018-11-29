@@ -21,7 +21,7 @@ public class RequestDAO implements IRequestDAO{
     @Override
     public void saveToDatabase(Request request){
         session = DocumentStoreHolder.getSession();
-
+        request.setCreationTime(getCurrentDate());
         RequestEntity entity = new RequestEntity(request);
         entity.setStatusId(RECEIVED);
         entity.setCreationTime(getCurrentDate());

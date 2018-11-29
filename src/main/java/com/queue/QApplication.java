@@ -1,4 +1,4 @@
-package com.queue.app;
+package com.queue;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

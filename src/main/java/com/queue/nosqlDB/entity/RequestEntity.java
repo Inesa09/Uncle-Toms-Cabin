@@ -10,7 +10,7 @@ public class RequestEntity extends Request {
     public RequestEntity(){}
 
     public RequestEntity(Request r){
-        super(r.getGuid(), r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getBody());
+        super(r.getGuid(), r.getServiceId(), r.getPriority(), r.getTimeLock(), r.getDeleteTime(), r.getBody());
     }
 
     public int getStatusId() {
