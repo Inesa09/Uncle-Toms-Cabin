@@ -19,7 +19,7 @@ public class RequestDAO implements IRequestDAO{
     private IDocumentSession session;
 
     @Override
-    public void saveToDatabase(Request request){
+    public Request saveToDatabase(Request request){
         session = DocumentStoreHolder.getSession();
         request.setCreationTime(getCurrentDate());
         RequestEntity entity = new RequestEntity(request);
@@ -29,6 +29,7 @@ public class RequestDAO implements IRequestDAO{
         session.store(entity, entity.getGuid());
         session.saveChanges();
         session.close();
+        return entity;
     }
 
     @Override

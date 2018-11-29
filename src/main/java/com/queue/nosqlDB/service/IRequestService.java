@@ -6,7 +6,7 @@ public interface IRequestService {
 
     void fillQueuesWithUnexecutedRequests();
 
-    void save(Request request);
+    Request save(Request request);
 
     void updateToExecuted(String guid);
 
