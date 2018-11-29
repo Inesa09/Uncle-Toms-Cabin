@@ -1,7 +1,9 @@
 package com.queue.queue.Queue;
 
+import com.queue.nosqlDB.service.RequestService;
 import com.queue.queue.LinkedQueuesRealisation.LinkedQueue;
 import com.queue.queue.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Timer;
@@ -11,6 +13,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Component("DeviceQueue")
 public class DeviceQueue implements IQueue {
+    @Autowired
+    RequestService requestService;
+
+
     private LinkedQueue queue = new LinkedQueue();
     private Lock lock = new ReentrantLock();
     private static final int MINToMILLISECOND = 60000;
@@ -28,8 +34,9 @@ public class DeviceQueue implements IQueue {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
-                            //TODO add DeleteFromBd
-                            deleteRequest(request);
+                            if(deleteRequest(request)){
+                                requestService.updateToUnexecuted(request.getGuid());
+                            }
                         }
                     };
                     timer.schedule(task,MINToMILLISECOND * request.getDeleteTime());
