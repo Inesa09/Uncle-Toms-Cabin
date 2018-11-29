@@ -4,6 +4,8 @@ import com.queue.queue.LinkedQueuesRealisation.LinkedQueue;
 import com.queue.queue.Request;
 import org.springframework.stereotype.Component;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,6 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class VideoQueue implements IQueue {
     private LinkedQueue queue = new LinkedQueue();
     private Lock lock = new ReentrantLock();
+    private static final int MINToMILLISECOND = 60000;
 
     public void setQueue(LinkedQueue queue){
         this.queue = queue;
@@ -23,7 +26,16 @@ public class VideoQueue implements IQueue {
                 queue.setRequest(request);
             }
             else {
-                queue.setRequestWithTimeLimit(request);
+                queue.setRequest(request);
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        //TODO add DeleteFromBd
+                        deleteRequest(request);
+                    }
+                };
+                timer.schedule(task,MINToMILLISECOND * request.getDeleteTime());
             }
         }
         finally {
@@ -35,6 +47,16 @@ public class VideoQueue implements IQueue {
         lock.lock();
         try {
             return queue.getRequest();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    public boolean deleteRequest(Request request){
+        lock.lock();
+        try {
+            return queue.deleteFromQueue(request);
         }
         finally {
             lock.unlock();
